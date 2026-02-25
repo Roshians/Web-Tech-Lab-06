@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{caption}
+
+\geometry{margin=1in}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    \Huge \textbf{Web Technology Lab 06} \\
+    \Large \textbf{Node.js App (Backend) + GitHub Skeleton Setup} \\
+    \vspace{1.5cm}
+    \textbf{Submitted By:} \\
+    Kunal Sharma \\
+    CS-2341057 \\
+    3CSE15 (G1) \\
+    \vspace{0.8cm}
+    \textbf{Instructor:} \\
+    Web Technology Lab Faculty \\
+    \vfill
+    IILM University, Greater Noida \\
+    \today
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This lab focuses on establishing a full-stack project architecture. We create a dual-folder repository structure containing a Node.js Express backend and a placeholder for a Vite-based React frontend. The primary objective is to demonstrate environment configuration, route handling, and version control best practices by pushing the skeleton to GitHub.
+
+\section{Essential Commands Followed}
+The following commands were used to initialize the project environment:
+
+\begin{lstlisting}[language=bash]
+mkdir lab06-node-fullstack-skeleton && cd lab06-node-fullstack-skeleton
+mkdir backend frontend
+git init
+# Inside backend/
+npm init -y
+npm i express cors dotenv
+npm i -D nodemon
+# Inside frontend/ (Placeholder initialization)
+npm create vite@latest . -- --template react
+\end{lstlisting}
+
+\section{Project Structure}
+The repository follows a strict hierarchy as required by the handout:
+\begin{itemize}
+    \item \textbf{backend/}: Contains the server logic.
+    \item \textbf{frontend/}: Vite placeholder for future UI components.
+    \item \textbf{.gitignore}: Configured to exclude \texttt{node\_modules} and \texttt{.env} files.
+    \item \textbf{.env}: Centralized environment variables for the root level.
+\end{itemize}
+
+\section{Backend Implementation}
+The backend uses Express for routing. A centralized \texttt{.env} file is used to manage the \texttt{PORT} and \texttt{DB\_LINK}.
+
+\subsection{Centralized .env File}
+\begin{lstlisting}[caption=Root .env file]
+PORT=3000
+DB_LINK=mongodb+srv://kunal:sushi_rocks_2026@cluster0.mongodb.net/...
+\end{lstlisting}
+
+\subsection{Server Configuration}
+\begin{lstlisting}[language=JavaScript, caption=backend/src/server.js]
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config({ path: '../.env' }); 
+
+const app = express();
+app.use(cors());
+
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => res.send("Lab 06: Backend running and GitHub push successful"));
+app.get("/about", (req, res) => {
+    res.send("Name: Kunal Sharma | Enrollment: CS-2341057 | Section: 3CSE15 (G1)");
+});
+app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+\end{lstlisting}
+
+\section{GitHub Push History}
+The code was pushed to the GitHub repository using the following sequence:
+\begin{enumerate}
+    \item \texttt{git add .}
+    \item \texttt{git commit -m "Lab 06: add backend + frontend skeleton"}
+    \item \texttt{git branch -M main}
+    \item \texttt{git remote add origin <URL>}
+    \item \texttt{git push -u origin main}
+\end{enumerate}
+
+\section{Conclusion}
+The Lab 06 project skeleton is successfully established. The backend provides student information via RESTful routes and correctly retrieves configuration from a centralized environment file.
+
+\end{document}
