@@ -2,7 +2,6 @@
 
 ## Student Details
 - **Name:** Kunal Sharma
-- **Enrollment:** CS-2341057
 - **Section:** 3CSE15 (G1)
 - **Roll No:** CS-2341057
 
