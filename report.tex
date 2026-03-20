@@ -32,7 +32,7 @@
     \textbf{GitHub Link:} \href{https://github.com/Roshians/Web-Tech-Lab-06}{https://github.com/Roshians/Web-Tech-Lab-06}\\[2cm]
     
     \vfill
-    \includegraphics[width=4cm]{placeholder.png} % Replace with college logo
+    \textbf{Instructor:} Mr. Dibyanarayan Hazra
     \vfill
 \end{titlepage}
 
@@ -40,8 +40,9 @@
 The objective of this lab is to develop a comprehensive Fullstack Role-Based Access Control (RBAC) system. Using Node.js and Express for the backend and React for the frontend, we implemented a system that distinguishes between three user roles: \textbf{SUPER\_ADMIN}, \textbf{ADMIN}, and \textbf{USER}. The system ensures secure authentication using JWT (JSON Web Tokens) and password hashing via bcrypt.
 
 \subsection{Roles and Permissions (RBAC Table)}
-\begin{table}[H]
+\begin{table}[ht!]
 \centering
+\small
 \begin{tabular}{|l|c|c|c|}
 \hline
 \textbf{Action} & \textbf{USER} & \textbf{ADMIN} & \textbf{SUPER\_ADMIN} \\ \hline
@@ -56,106 +57,106 @@ Delete Users (/users/:id) & No & Yes (USER only) & Yes (Any) \\ \hline
 \end{table}
 
 \section{API Documentation Table}
-\begin{table}[H]
+\begin{table}[ht!]
 \centering
-\small
-\begin{tabular}{|l|l|l|l|l|c|}
+\scriptsize
+\begin{tabular}{|l|l|l|l|l|p{2.5cm}|p{2cm}|c|}
 \hline
-\textbf{\#} & \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Role} & \textbf{Fig ID} \\ \hline
-1 & POST & /api/auth/register & No & Public & Fig-1 \\ \hline
-2 & POST & /api/auth/login & No & Public & Fig-2 \\ \hline
-3 & GET & /api/users/me & Yes & All & Fig-3 \\ \hline
-4 & GET & /api/users & Yes & ADMIN/SUPER & Fig-4 \\ \hline
-5 & POST & /api/users & Yes & ADMIN/SUPER & Fig-5 \\ \hline
-6 & PATCH & /api/users/:id/role & Yes & SUPER\_ADMIN & Fig-6 \\ \hline
-7 & DELETE & /api/users/:id & Yes & ADMIN/SUPER & Fig-7 \\ \hline
+\textbf{\#} & \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Role} & \textbf{Req. Body} & \textbf{Response} & \textbf{Fig ID} \\ \hline
+1 & POST & /api/auth/register & No & Public & \{name, email, password\} & 201 Created & Fig-1 \\ \hline
+2 & POST & /api/auth/login & No & Public & \{email, password\} & 200 Token + User & Fig-2 \\ \hline
+3 & GET & /api/users/me & Yes & All & - & 200 Profile & Fig-3 \\ \hline
+4 & GET & /api/users & Yes & ADMIN / SUPER & - & 200 User List & Fig-4 \\ \hline
+5 & POST & /api/users & Yes & ADMIN / SUPER & \{name, email, password, role\} & 201 Created & Fig-5 \\ \hline
+6 & PATCH & /api/users/:id/role & Yes & SUPER\_ADMIN & \{role\} & 200 Updated & Fig-6 \\ \hline
+7 & DELETE & /api/users/:id & Yes & ADMIN / SUPER & - & 200 Deleted & Fig-7 \\ \hline
 \end{tabular}
 \end{table}
 
 \section{API Screenshots}
-This section contains screenshots of Postman/Thunder Client tests proving the API functionality and role-based access.
+This section contains screenshots of Postman tests proving the API functionality and role-based access.
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-1.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-1.png}
 \caption{Fig-1: POST /api/auth/register - Successfully creating a new USER account.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-2.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-2.png}
 \caption{Fig-2: POST /api/auth/login - Obtaining JWT token and user profile for Super Admin.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-3.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-3.png}
 \caption{Fig-3: GET /api/users/me - Accessing own profile data using Bearer token.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-4.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-4.png}
 \caption{Fig-4: GET /api/users - SUPER\_ADMIN viewing the complete user list.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-5.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-5.png}
 \caption{Fig-5: POST /api/users - SUPER\_ADMIN creating an ADMIN account.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-6.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-6.png}
 \caption{Fig-6: PATCH /api/users/:id/role - SUPER\_ADMIN updating a user's role.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-7.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-7.png}
 \caption{Fig-7: DELETE /api/users/:id - SUPER\_ADMIN deleting a user account.}
 \end{figure}
 
 \section{RBAC Proof (Forbidden Examples)}
 Demonstrating server-side enforcement of role restrictions (403 Forbidden).
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-8.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-8.png}
 \caption{Fig-8: GET /api/users by USER role returns 403 Forbidden (RBAC enforced).}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/fig-9.png}
+\includegraphics[width=1\textwidth]{includegraphics/fig-9.png}
 \caption{Fig-9: POST /api/users by ADMIN role trying to create another ADMIN returns 403 Forbidden.}
 \end{figure}
 
 \section{UI Screenshots}
 Visual proof of the role-based React UI rendering features based on permissions.
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/login.png}
+\includegraphics[width=1\textwidth]{includegraphics/login.png}
 \caption{Fig-10: Login Page - Interface with test account references.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/user-dash.png}
+\includegraphics[width=1\textwidth]{includegraphics/user-dash.png}
 \caption{Fig-11: USER Dashboard - Restricted view showing only profile info.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/admin-dash.png}
+\includegraphics[width=1\textwidth]{includegraphics/admin-dash.png}
 \caption{Fig-12: ADMIN Dashboard - View restricted to USER accounts only.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.8\textwidth]{includegraphics/super-dash.png}
+\includegraphics[width=1\textwidth]{includegraphics/super-dash.png}
 \caption{Fig-13: SUPER\_ADMIN Dashboard - Full user management with role controls.}
 \end{figure}
 
