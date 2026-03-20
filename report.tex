@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{array}
 
 \geometry{a4paper, margin=1in}
 
@@ -30,22 +31,34 @@
     \textbf{GitHub Link:} \href{https://github.com/Roshians/Web-Tech-Lab-06}{https://github.com/Roshians/Web-Tech-Lab-06}\\[2cm]
     
     \vfill
-    \includegraphics[width=4cm]{placeholder.png} % Update with college logo if needed
+    \includegraphics[width=4cm]{placeholder.png} % Replace with college logo
     \vfill
 \end{titlepage}
 
 \section{Overview}
-This lab implements a Fullstack Role-Based Access Control (RBAC) system using Node.js, Express, and React. The system features three distinct roles with specific permissions:
-\begin{itemize}
-    \item \textbf{SUPER\_ADMIN}: Full system control.
-    \item \textbf{ADMIN}: Moderate user management (USER role only).
-    \item \textbf{USER}: Restricted access to own profile only.
-\end{itemize}
+The objective of this lab is to develop a comprehensive Fullstack Role-Based Access Control (RBAC) system. Using Node.js and Express for the backend and React for the frontend, we implemented a system that distinguishes between three user roles: \textbf{SUPER\_ADMIN}, \textbf{ADMIN}, and \textbf{USER}. The system ensures secure authentication using JWT (JSON Web Tokens) and password hashing via bcrypt.
+
+\subsection{Roles and Permissions (RBAC Table)}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Action} & \textbf{USER} & \textbf{ADMIN} & \textbf{SUPER\_ADMIN} \\ \hline
+Register (Public) & Yes & - & - \\ \hline
+Login & Yes & Yes & Yes \\ \hline
+View Own Profile (/users/me) & Yes & Yes & Yes \\ \hline
+List Users (/users) & No & Yes (USERs only) & Yes (All) \\ \hline
+Create User (/users) & No & Yes (USER only) & Yes (USER/ADMIN) \\ \hline
+Change Role (/users/:id/role) & No & No & Yes \\ \hline
+Delete Users (/users/:id) & No & Yes (USER only) & Yes (Any) \\ \hline
+\end{tabular}
+\end{table}
 
 \section{API Documentation Table}
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|l|l|c|l|c|}
+\small
+\begin{tabular}{|l|l|l|l|l|c|}
 \hline
 \textbf{\#} & \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Role} & \textbf{Fig ID} \\ \hline
 1 & POST & /api/auth/register & No & Public & Fig-1 \\ \hline
@@ -59,22 +72,43 @@ This lab implements a Fullstack Role-Based Access Control (RBAC) system using No
 \end{table}
 
 \section{API Screenshots}
-\textit{Captions and proof of API execution via Postman/Thunder Client.}
+\textit{This section contains screenshots of Postman/Thunder Client tests proving the API functionality.}
 
-% Example inclusion:
-% \begin{figure}[h!]
-% \centering
-% \includegraphics[width=0.8\textwidth]{fig-1.png}
-% \caption{Fig-1: POST /api/auth/register - Successfully creating a new USER.}
-% \end{figure}
+\begin{itemize}
+    \item \textbf{Fig-1:} POST /api/auth/register - Registering a new USER account.
+    \item \textbf{Fig-2:} POST /api/auth/login - Obtaining JWT token and user profile.
+    \item \textbf{Fig-3:} GET /api/users/me - Accessing own profile data using Bearer token.
+    \item \textbf{Fig-4:} GET /api/users - ADMIN viewing USER list.
+    \item \textbf{Fig-5:} POST /api/users - SUPER\_ADMIN creating an ADMIN account.
+    \item \textbf{Fig-6:} PATCH /api/users/:id/role - SUPER\_ADMIN upgrading a USER to ADMIN.
+    \item \textbf{Fig-7:} DELETE /api/users/:id - ADMIN deleting a USER account.
+\end{itemize}
 
 \section{RBAC Proof (Forbidden Examples)}
-\textit{Screenshots showing 403 Forbidden responses when roles lack permission.}
+\textit{Demonstrating server-side enforcement of role restrictions (403 Forbidden).}
+
+\begin{itemize}
+    \item \textbf{Fig-8:} GET /api/users by USER returns 403 Forbidden (RBAC working).
+    \item \textbf{Fig-9:} POST /api/users by ADMIN trying to create an ADMIN returns 403.
+\end{itemize}
 
 \section{UI Screenshots}
-\textit{Screenshots of Login and Dashboards for each role.}
+\textit{Visual proof of role-based rendering in the React Dashboard.}
+
+\begin{itemize}
+    \item \textbf{Login Page:} Secure login interface with test account references.
+    \item \textbf{USER Dashboard:} Profile view with restricted access to management tools.
+    \item \textbf{ADMIN Dashboard:} User management list showing only USER role accounts.
+    \item \textbf{SUPER\_ADMIN Dashboard:} Full user list with role upgrade and global management tools.
+\end{itemize}
 
 \section{Conclusion}
-In this lab, I successfully extended a fullstack skeleton to implement a robust RBAC system. I learned how to use JWT for stateless authentication, bcrypt for password security, and Express middleware to enforce server-side role constraints. The frontend was built with React to provide a dynamic UI based on the user's role.
+Through Lab 07, I gained deep experience in implementing a multi-role system from scratch. Key takeaways include:
+\begin{itemize}
+    \item Enforcing RBAC using custom middleware in Express.
+    \item Securing REST APIs with stateless JWT authentication.
+    \item Using React's conditional rendering to display features based on user role.
+    \item Designing professional API documentation and testing for security compliance.
+\end{itemize}
 
 \end{document}
